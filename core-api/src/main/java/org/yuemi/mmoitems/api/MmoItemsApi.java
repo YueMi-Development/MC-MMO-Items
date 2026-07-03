@@ -1,9 +1,9 @@
-package org.yuemi.example.api;
+package org.yuemi.mmoitems.api;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public interface ExampleApi {
+public interface MmoItemsApi {
 
     void sendMessage(
             @NotNull Player player,
