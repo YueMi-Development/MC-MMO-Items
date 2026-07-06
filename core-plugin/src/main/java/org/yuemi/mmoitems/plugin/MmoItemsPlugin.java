@@ -1,6 +1,9 @@
 package org.yuemi.mmoitems.plugin;
 
 import org.yuemi.mmoitems.plugin.config.migration.ConfigMigrator;
+import org.yuemi.mmoitems.plugin.item.ItemManager;
+import org.yuemi.mmoitems.plugin.listener.ItemLifecycleListener;
+
 import java.io.File;
 
 import org.bukkit.plugin.ServicePriority;
@@ -10,12 +13,19 @@ import org.yuemi.mmoitems.api.MmoItemsApi;
 public final class MmoItemsPlugin extends JavaPlugin {
 
     private MmoItemsApi api;
+    private ItemManager itemManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         migrateConfig();
-        this.api = new MmoItemsApiImpl();
+
+        this.itemManager = new ItemManager(this);
+        this.itemManager.loadConfigs();
+
+        new ItemLifecycleListener(this, itemManager).register();
+
+        this.api = new MmoItemsApiImpl(itemManager);
 
         getServer().getServicesManager().register(
                 MmoItemsApi.class,
@@ -27,7 +37,9 @@ public final class MmoItemsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getServer().getServicesManager().unregister(MmoItemsApi.class, api);
+        if (api != null) {
+            getServer().getServicesManager().unregister(MmoItemsApi.class, api);
+        }
     }
 
     private void migrateConfig() {
@@ -39,3 +51,4 @@ public final class MmoItemsPlugin extends JavaPlugin {
         }
     }
 }
+

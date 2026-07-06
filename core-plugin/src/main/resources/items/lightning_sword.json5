@@ -1,0 +1,16 @@
+{
+  // Example custom item configuration
+  name: "<gold>Lightning Sword",
+  material: "DIAMOND_SWORD",
+  custom-model-data: 101,
+  lore: [
+    "<gray>A blade charged with the power of storms.",
+    "<yellow>Strike enemies to summon lightning!"
+  ],
+  skills: [
+    {
+      skill: "lightning_radius_storm",
+      trigger: "onAttack"
+    }
+  ]
+}

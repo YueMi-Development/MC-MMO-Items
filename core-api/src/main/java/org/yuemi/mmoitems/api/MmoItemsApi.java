@@ -1,7 +1,9 @@
 package org.yuemi.mmoitems.api;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 public interface MmoItemsApi {
 
@@ -11,4 +13,10 @@ public interface MmoItemsApi {
     );
 
     boolean isFeatureEnabled(@NotNull Player player);
+
+    boolean isCustomItem(@NotNull ItemStack item);
+
+    @NotNull Optional<String> getCustomItemId(@NotNull ItemStack item);
+
+    @NotNull ItemStack createCustomItem(@NotNull String itemId);
 }
