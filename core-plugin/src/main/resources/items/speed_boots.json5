@@ -1,0 +1,15 @@
+{
+  // Custom Speed Boots item configuration
+  name: "<aqua>Speed Boots",
+  material: "DIAMOND_BOOTS",
+  lore: [
+    "<gray>Boots imbued with wind spirits.",
+    "<aqua>Right-click to activate speed shield!"
+  ],
+  skills: [
+    {
+      skill: "speed_shield",
+      trigger: "onInteract"
+    }
+  ]
+}

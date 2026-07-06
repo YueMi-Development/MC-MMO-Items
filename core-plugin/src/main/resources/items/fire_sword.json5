@@ -1,0 +1,15 @@
+{
+  // Custom Fire Sword item configuration
+  name: "<red>Fire Sword",
+  material: "DIAMOND_SWORD",
+  lore: [
+    "<gray>A burning blade forged in nether flames.",
+    "<red>Unleashes fire breath upon attacking!"
+  ],
+  skills: [
+    {
+      skill: "fire_breath",
+      trigger: "onAttack"
+    }
+  ]
+}

@@ -74,24 +74,6 @@ public final class ItemManager {
             itemsFolder.mkdirs();
         }
 
-        // Ensure at least the example item config exists
-        ensureDefaultItemConfig("lightning_sword.json5", "{\n" +
-                "  // Example custom item configuration\n" +
-                "  name: \"<gold>Lightning Sword\",\n" +
-                "  material: \"DIAMOND_SWORD\",\n" +
-                "  custom-model-data: 101,\n" +
-                "  lore: [\n" +
-                "    \"<gray>A blade charged with the power of storms.\",\n" +
-                "    \"<yellow>Strike enemies to summon lightning!\"\n" +
-                "  ],\n" +
-                "  skills: [\n" +
-                "    {\n" +
-                "      skill: \"lightning_radius_storm\",\n" +
-                "      trigger: \"onAttack\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}\n");
-
         File[] files = itemsFolder.listFiles();
         if (files != null) {
             for (File file : files) {
@@ -184,21 +166,5 @@ public final class ItemManager {
     @NotNull
     public Collection<String> getRegisteredItemTypes() {
         return loadedConfigs.keySet();
-    }
-
-    private void ensureDefaultItemConfig(@NotNull String fileName, @NotNull String defaultJson) {
-        File itemsFolder = new File(plugin.getDataFolder(), "items");
-        File file = new File(itemsFolder, fileName);
-        if (!file.exists()) {
-            try {
-                plugin.saveResource("items/" + fileName, false);
-            } catch (Exception e) {
-                try (java.io.FileWriter writer = new java.io.FileWriter(file)) {
-                    writer.write(defaultJson);
-                } catch (java.io.IOException ex) {
-                    plugin.getLogger().severe("Could not create default config file: " + fileName + " - " + ex.getMessage());
-                }
-            }
-        }
     }
 }
