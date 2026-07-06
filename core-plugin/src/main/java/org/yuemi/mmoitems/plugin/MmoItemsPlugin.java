@@ -8,6 +8,8 @@ import org.yuemi.mmoitems.plugin.command.subcommands.GiveCommand;
 import org.yuemi.mmoitems.plugin.command.subcommands.ListCommand;
 import org.yuemi.mmoitems.plugin.command.subcommands.ReloadCommand;
 
+import org.yuemi.mmoitems.plugin.item.MmoItemProvider;
+
 import java.io.File;
 
 import org.bukkit.plugin.ServicePriority;
@@ -40,6 +42,17 @@ public final class MmoItemsPlugin extends JavaPlugin {
         }
 
         this.api = new MmoItemsApiImpl(itemManager);
+
+        // Register ItemProvider with YueMiLibs ItemsApi
+        try {
+            org.yuemi.libs.api.items.ItemsApi itemsApi = org.yuemi.libs.api.items.ItemsApiProvider.getApi();
+            if (itemsApi != null) {
+                itemsApi.registerProvider("mmoitems", new MmoItemProvider(itemManager));
+                getLogger().info("Successfully registered MMOItems as an ItemProvider in YueMiLibs!");
+            }
+        } catch (Throwable t) {
+            getLogger().warning("Could not register ItemsApi provider: " + t.getMessage());
+        }
 
         getServer().getServicesManager().register(
                 MmoItemsApi.class,
