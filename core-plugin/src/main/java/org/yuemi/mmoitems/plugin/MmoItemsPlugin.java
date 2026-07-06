@@ -3,6 +3,10 @@ package org.yuemi.mmoitems.plugin;
 import org.yuemi.mmoitems.plugin.config.migration.ConfigMigrator;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 import org.yuemi.mmoitems.plugin.listener.ItemLifecycleListener;
+import org.yuemi.mmoitems.plugin.command.MmoItemsCommand;
+import org.yuemi.mmoitems.plugin.command.subcommands.GiveCommand;
+import org.yuemi.mmoitems.plugin.command.subcommands.ListCommand;
+import org.yuemi.mmoitems.plugin.command.subcommands.ReloadCommand;
 
 import java.io.File;
 
@@ -24,6 +28,16 @@ public final class MmoItemsPlugin extends JavaPlugin {
         this.itemManager.loadConfigs();
 
         new ItemLifecycleListener(this, itemManager).register();
+
+        MmoItemsCommand cmd = new MmoItemsCommand();
+        cmd.registerSubCommand(new GiveCommand(itemManager));
+        cmd.registerSubCommand(new ListCommand(itemManager));
+        cmd.registerSubCommand(new ReloadCommand(itemManager));
+        var mmoCommand = getCommand("mmoitems");
+        if (mmoCommand != null) {
+            mmoCommand.setExecutor(cmd);
+            mmoCommand.setTabCompleter(cmd);
+        }
 
         this.api = new MmoItemsApiImpl(itemManager);
 
