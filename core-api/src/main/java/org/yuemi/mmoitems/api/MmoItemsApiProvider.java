@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 public interface MmoItemsApiProvider {
 
     /**
+     * Retrieves the currently registered MmoItemsApi implementation.
+     *
      * @return active API instance
      */
     @NotNull
