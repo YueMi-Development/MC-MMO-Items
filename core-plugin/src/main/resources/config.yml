@@ -1,1 +1,7 @@
-config-version: 1
+config-version: 2
+
+# Configuration for custom items loaded from external providers (e.g. CraftEngine, Nexo, ItemsAdder)
+# Options:
+# - FALLBACK: The configuration properties (name, lore, custom model data) are only applied if the original item does not have them.
+# - OVERRIDE: The configuration properties always override the properties of the original item.
+custom-items-policy: "FALLBACK"

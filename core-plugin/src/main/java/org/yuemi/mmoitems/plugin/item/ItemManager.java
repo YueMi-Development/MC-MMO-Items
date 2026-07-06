@@ -100,32 +100,58 @@ public final class ItemManager {
             throw new IllegalArgumentException("Unknown custom item type: " + itemId);
         }
 
-        Material material;
-        try {
-            material = Material.valueOf(config.material().toUpperCase());
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid material '" + config.material() + "' for item: " + itemId);
+        ItemStack item;
+        if (config.material().contains(":")) {
+            try {
+                org.yuemi.libs.api.items.ItemsApi itemsApi = org.yuemi.libs.api.items.ItemsApiProvider.getApi();
+                if (itemsApi != null) {
+                    item = itemsApi.getItem(config.material(), 1);
+                    if (item == null) {
+                        throw new IllegalArgumentException("Provider returned null for item '" + config.material() + "'");
+                    }
+                } else {
+                    throw new IllegalStateException("YueMi Libs ItemsApi is not available");
+                }
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Failed to load custom material '" + config.material() + "' for item " + itemId + ": " + e.getMessage(), e);
+            }
+        } else {
+            Material material;
+            try {
+                material = Material.valueOf(config.material().toUpperCase());
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Invalid material '" + config.material() + "' for item: " + itemId);
+            }
+            item = new ItemStack(material);
         }
-
-        ItemStack item = new ItemStack(material);
         var meta = item.getItemMeta();
         if (meta == null) {
             return item;
         }
 
+        boolean isCustomProviderItem = config.material().contains(":") && !config.material().startsWith("minecraft:");
+        String policy = plugin.getConfig().getString("custom-items-policy", "FALLBACK").toUpperCase();
+        boolean forceOverride = "OVERRIDE".equals(policy);
+
         if (config.name() != null) {
-            meta.displayName(MiniMessage.miniMessage().deserialize(config.name()));
+            if (!isCustomProviderItem || forceOverride || !meta.hasDisplayName()) {
+                meta.displayName(MiniMessage.miniMessage().deserialize(config.name()));
+            }
         }
 
         if (config.lore() != null) {
-            List<net.kyori.adventure.text.Component> loreComponents = config.lore().stream()
-                    .map(line -> MiniMessage.miniMessage().deserialize(line))
-                    .collect(Collectors.toList());
-            meta.lore(loreComponents);
+            if (!isCustomProviderItem || forceOverride || !meta.hasLore()) {
+                List<net.kyori.adventure.text.Component> loreComponents = config.lore().stream()
+                        .map(line -> MiniMessage.miniMessage().deserialize(line))
+                        .collect(Collectors.toList());
+                meta.lore(loreComponents);
+            }
         }
 
         if (config.customModelData() != null) {
-            meta.setCustomModelData(config.customModelData());
+            if (!isCustomProviderItem || forceOverride || !meta.hasCustomModelData()) {
+                meta.setCustomModelData(config.customModelData());
+            }
         }
 
         PersistentDataContainer pdc = meta.getPersistentDataContainer();

@@ -1,0 +1,10 @@
+{
+  // Custom Amethyst Torch item configuration using CraftEngine material
+  name: "<light_purple>Amethyst Torch",
+  material: "craftengine:amethyst_torch",
+  lore: [
+    "<gray>A beautiful purple torch powered by amethyst shards.",
+    "<purple>Emits a comforting glow."
+  ],
+  skills: []
+}
