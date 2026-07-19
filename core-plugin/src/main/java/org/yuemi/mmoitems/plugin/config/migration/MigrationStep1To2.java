@@ -1,7 +1,8 @@
 package org.yuemi.mmoitems.plugin.config.migration;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.yuemi.config.api.MigrationStep;
 
 /**
  * Migration step to target version 2. Adds the custom-items-policy option.
@@ -14,7 +15,7 @@ public final class MigrationStep1To2 implements MigrationStep {
     }
 
     @Override
-    public void migrate(@NotNull YamlConfiguration configuration) {
+    public void migrate(@NotNull FileConfiguration configuration) {
         if (!configuration.contains("custom-items-policy")) {
             configuration.set("custom-items-policy", "FALLBACK");
         }
