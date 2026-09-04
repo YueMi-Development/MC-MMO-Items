@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.yuemi.mmoitems.api.MmoItemsApi;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 
+import java.util.List;
 import java.util.Optional;
 
 final class MmoItemsApiImpl implements MmoItemsApi {
@@ -45,5 +46,14 @@ final class MmoItemsApiImpl implements MmoItemsApi {
     public @NotNull ItemStack createCustomItem(@NotNull String itemId) {
         return itemManager.createCustomItem(itemId);
     }
-}
 
+    @Override
+    public boolean hasType(@NotNull ItemStack item, @NotNull String type) {
+        return itemManager.hasType(item, type);
+    }
+
+    @Override
+    public @NotNull List<String> getItemTypes(@NotNull ItemStack item) {
+        return itemManager.getItemTypes(item);
+    }
+}

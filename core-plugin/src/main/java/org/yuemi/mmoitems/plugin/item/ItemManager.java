@@ -26,10 +26,12 @@ public final class ItemManager {
     private final Map<String, ItemConfigDto> loadedConfigs = new HashMap<>();
     private final ObjectMapper mapper;
     private final NamespacedKey idKey;
+    private final NamespacedKey typesKey;
 
     public ItemManager(@NotNull JavaPlugin plugin) {
         this.plugin = plugin;
         this.idKey = new NamespacedKey(plugin, "id");
+        this.typesKey = new NamespacedKey(plugin, "types");
         this.mapper = JsonMapper.builder()
                 .enable(JsonReadFeature.ALLOW_JAVA_COMMENTS)
                 .enable(JsonReadFeature.ALLOW_SINGLE_QUOTES)
@@ -158,6 +160,10 @@ public final class ItemManager {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(idKey, PersistentDataType.STRING, cleanId);
 
+        if (config.types() != null && !config.types().isEmpty()) {
+            pdc.set(typesKey, PersistentDataType.STRING, String.join(",", config.types()));
+        }
+
         item.setItemMeta(meta);
         return item;
     }
@@ -175,6 +181,29 @@ public final class ItemManager {
             return Optional.empty();
         }
         return Optional.ofNullable(item.getItemMeta().getPersistentDataContainer().get(idKey, PersistentDataType.STRING));
+    }
+
+    public boolean hasType(@Nullable ItemStack item, @NotNull String type) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+        String types = item.getItemMeta().getPersistentDataContainer().get(typesKey, PersistentDataType.STRING);
+        if (types == null || types.isEmpty()) {
+            return false;
+        }
+        return Arrays.asList(types.split(",")).contains(type);
+    }
+
+    @NotNull
+    public List<String> getItemTypes(@Nullable ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return Collections.emptyList();
+        }
+        String types = item.getItemMeta().getPersistentDataContainer().get(typesKey, PersistentDataType.STRING);
+        if (types == null || types.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(types.split(","));
     }
 
     @NotNull

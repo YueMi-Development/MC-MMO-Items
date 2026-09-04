@@ -3,6 +3,7 @@ package org.yuemi.mmoitems.api;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -53,4 +54,8 @@ public interface MmoItemsApi {
      * @throws IllegalArgumentException if the custom item type is unknown or material is invalid
      */
     @NotNull ItemStack createCustomItem(@NotNull String itemId);
+
+    boolean hasType(@NotNull ItemStack item, @NotNull String type);
+
+    @NotNull List<String> getItemTypes(@NotNull ItemStack item);
 }

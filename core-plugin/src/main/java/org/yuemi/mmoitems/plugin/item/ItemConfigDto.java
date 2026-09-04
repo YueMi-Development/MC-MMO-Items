@@ -7,5 +7,6 @@ public record ItemConfigDto(
     String material,
     Integer customModelData,
     List<String> lore,
-    List<ItemSkillConfig> skills
+    List<ItemSkillConfig> skills,
+    List<String> types
 ) {}
