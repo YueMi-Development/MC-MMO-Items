@@ -6,18 +6,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.yuemi.mmoitems.plugin.command.SubCommand;
+import org.yuemi.mmoitems.plugin.command.BaseSubCommand;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class GiveCommand implements SubCommand {
+public final class GiveCommand extends BaseSubCommand {
 
     private final ItemManager itemManager;
-    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public GiveCommand(@NotNull ItemManager itemManager) {
         this.itemManager = itemManager;
@@ -41,13 +38,13 @@ public final class GiveCommand implements SubCommand {
     @Override
     public void execute(@NotNull CommandSender sender, @NotNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(miniMessage.deserialize("<red>Usage: /mmoitems give <player> <itemId> [amount]</red>"));
+            sendMessage(sender, "<red>Usage: /mmoitems give <player> <itemId> [amount]</red>");
             return;
         }
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            sender.sendMessage(miniMessage.deserialize("<red>Player '" + args[0] + "' not found.</red>"));
+            sendMessage(sender, "<red>Player '" + args[0] + "' not found.</red>");
             return;
         }
 
@@ -64,10 +61,10 @@ public final class GiveCommand implements SubCommand {
             ItemStack item = itemManager.createCustomItem(itemId);
             item.setAmount(amount);
             target.getInventory().addItem(item);
-            sender.sendMessage(miniMessage.deserialize("<green>Gave " + amount + "x '" + itemId + "' to " + target.getName() + ".</green>"));
+            sendMessage(sender, "<green>Gave " + amount + "x '" + itemId + "' to " + target.getName() + ".</green>");
             target.sendMessage(miniMessage.deserialize("<green>You received " + amount + "x '" + itemId + "'.</green>"));
         } catch (IllegalArgumentException e) {
-            sender.sendMessage(miniMessage.deserialize("<red>" + e.getMessage() + "</red>"));
+            sendMessage(sender, "<red>" + e.getMessage() + "</red>");
         }
     }
 
@@ -85,6 +82,6 @@ public final class GiveCommand implements SubCommand {
         } else if (args.length == 3) {
             return List.of("1", "64");
         }
-        return Collections.emptyList();
+        return List.of();
     }
 }

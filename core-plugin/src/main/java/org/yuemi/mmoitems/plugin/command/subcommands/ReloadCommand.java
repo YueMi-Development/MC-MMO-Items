@@ -1,18 +1,15 @@
 package org.yuemi.mmoitems.plugin.command.subcommands;
 
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.yuemi.mmoitems.plugin.command.SubCommand;
+import org.yuemi.mmoitems.plugin.command.BaseSubCommand;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 
-import java.util.Collections;
 import java.util.List;
 
-public final class ReloadCommand implements SubCommand {
+public final class ReloadCommand extends BaseSubCommand {
 
     private final ItemManager itemManager;
-    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public ReloadCommand(@NotNull ItemManager itemManager) {
         this.itemManager = itemManager;
@@ -37,15 +34,15 @@ public final class ReloadCommand implements SubCommand {
     public void execute(@NotNull CommandSender sender, @NotNull String[] args) {
         try {
             itemManager.loadConfigs();
-            sender.sendMessage(miniMessage.deserialize("<green>Custom item configurations reloaded successfully!</green>"));
+            sendMessage(sender, "<green>Custom item configurations reloaded successfully!</green>");
         } catch (Exception e) {
-            sender.sendMessage(miniMessage.deserialize("<red>Failed to reload configurations: " + e.getMessage() + "</red>"));
+            sendMessage(sender, "<red>Failed to reload configurations: " + e.getMessage() + "</red>");
             e.printStackTrace();
         }
     }
 
     @Override
     public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
-        return Collections.emptyList();
+        return List.of();
     }
 }

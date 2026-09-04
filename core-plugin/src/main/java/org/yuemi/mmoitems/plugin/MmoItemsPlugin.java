@@ -3,13 +3,7 @@ package org.yuemi.mmoitems.plugin;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 import org.yuemi.mmoitems.plugin.listener.ItemLifecycleListener;
 import org.yuemi.mmoitems.plugin.command.MmoItemsCommand;
-import org.yuemi.mmoitems.plugin.command.subcommands.GiveCommand;
-import org.yuemi.mmoitems.plugin.command.subcommands.ListCommand;
-import org.yuemi.mmoitems.plugin.command.subcommands.ReloadCommand;
-
 import org.yuemi.mmoitems.plugin.item.MmoItemProvider;
-
-import java.io.File;
 
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,10 +24,7 @@ public final class MmoItemsPlugin extends JavaPlugin {
 
         new ItemLifecycleListener(this, itemManager).register();
 
-        MmoItemsCommand cmd = new MmoItemsCommand();
-        cmd.registerSubCommand(new GiveCommand(itemManager));
-        cmd.registerSubCommand(new ListCommand(itemManager));
-        cmd.registerSubCommand(new ReloadCommand(itemManager));
+        MmoItemsCommand cmd = new MmoItemsCommand(itemManager);
         var mmoCommand = getCommand("mmoitems");
         if (mmoCommand != null) {
             mmoCommand.setExecutor(cmd);
@@ -68,4 +59,3 @@ public final class MmoItemsPlugin extends JavaPlugin {
         }
     }
 }
-

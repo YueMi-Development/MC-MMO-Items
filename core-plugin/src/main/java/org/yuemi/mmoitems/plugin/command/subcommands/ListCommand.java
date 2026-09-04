@@ -1,18 +1,15 @@
 package org.yuemi.mmoitems.plugin.command.subcommands;
 
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.yuemi.mmoitems.plugin.command.SubCommand;
+import org.yuemi.mmoitems.plugin.command.BaseSubCommand;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 
-import java.util.Collections;
 import java.util.List;
 
-public final class ListCommand implements SubCommand {
+public final class ListCommand extends BaseSubCommand {
 
     private final ItemManager itemManager;
-    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public ListCommand(@NotNull ItemManager itemManager) {
         this.itemManager = itemManager;
@@ -37,18 +34,18 @@ public final class ListCommand implements SubCommand {
     public void execute(@NotNull CommandSender sender, @NotNull String[] args) {
         var items = itemManager.getRegisteredItemTypes();
         if (items.isEmpty()) {
-            sender.sendMessage(miniMessage.deserialize("<red>No custom items are currently registered.</red>"));
+            sendMessage(sender, "<red>No custom items are currently registered.</red>");
             return;
         }
 
-        sender.sendMessage(miniMessage.deserialize("<gold>=== Registered Custom Items ===</gold>"));
+        sendMessage(sender, "<gold>=== Registered Custom Items ===</gold>");
         for (String id : items) {
-            sender.sendMessage(miniMessage.deserialize("<yellow>- " + id + "</yellow>"));
+            sendMessage(sender, "<yellow>- " + id + "</yellow>");
         }
     }
 
     @Override
     public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
-        return Collections.emptyList();
+        return List.of();
     }
 }
