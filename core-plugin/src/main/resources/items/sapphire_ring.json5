@@ -1,0 +1,21 @@
+{
+  // Sapphire Ring - grants water breathing
+  name: "<aqua>Sapphire Ring",
+  material: "GOLD_NUGGET",
+  customModelData: 2002,
+  lore: [
+    "<gray>A small ring with a deep blue sapphire.",
+    "<aqua>Wearer gains water breathing."
+  ],
+  types: [
+    "RING",
+    "JEWELRY",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "water_breathing_aura",
+      trigger: "onEquip"
+    }
+  ]
+}

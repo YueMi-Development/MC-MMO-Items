@@ -1,0 +1,22 @@
+{
+  // Steel Belt - a sturdy belt that grants strength when equipped
+  name: "<gold>Steel Belt",
+  material: "IRON_CHESTPLATE",
+  customModelData: 1001,
+  lore: [
+    "<gray>A heavy belt forged from tempered steel.",
+    "<yellow>Provides +2 armor when equipped."
+  ],
+  types: [
+    "BELT",
+    "WAIST",
+    "ARMOR",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "armor_boost",
+      trigger: "onEquip"
+    }
+  ]
+}

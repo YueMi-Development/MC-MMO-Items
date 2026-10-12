@@ -1,0 +1,21 @@
+{
+  // Ruby Ring - grants fire resistance
+  name: "<yellow>Ruby Ring",
+  material: "GOLD_NUGGET",
+  customModelData: 2001,
+  lore: [
+    "<gray>A small ring with a fiery ruby gem.",
+    "<yellow>Wearer gains fire resistance."
+  ],
+  types: [
+    "RING",
+    "JEWELRY",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "fire_resistance_aura",
+      trigger: "onEquip"
+    }
+  ]
+}

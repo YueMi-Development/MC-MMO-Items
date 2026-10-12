@@ -1,0 +1,21 @@
+{
+  // Pendant of Speed - grants speed boost
+  name: "<gold>Pendant of Speed",
+  material: "GOLD_INGOT",
+  customModelData: 3002,
+  lore: [
+    "<gray>A glowing pendant that hums with kinetic energy.",
+    "<gold>Wearer gains Speed I effect."
+  ],
+  types: [
+    "NECKLACE",
+    "AMULET",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "speed_aura",
+      trigger: "onEquip"
+    }
+  ]
+}

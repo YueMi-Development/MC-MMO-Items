@@ -1,0 +1,22 @@
+{
+  // Reinforced Leather Gloves - heavier gloves for combat
+  name: "<aqua>Reinforced Leather Gloves",
+  material: "LEATHER_CHESTPLATE",
+  customModelData: 1003,
+  lore: [
+    "<gray>Sturdy leather gloves reinforced with iron studs.",
+    "<aqua>Grants +1 attack damage."
+  ],
+  types: [
+    "GLOVES",
+    "HAND",
+    "ARMOR",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "attack_boost",
+      trigger: "onAttack"
+    }
+  ]
+}

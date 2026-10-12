@@ -1,0 +1,21 @@
+{
+  // Amulet of Vitality - grants extra health
+  name: "<light_purple>Amulet of Vitality",
+  material: "NETHER_STAR",
+  customModelData: 3001,
+  lore: [
+    "<gray>A radiant amulet pulsing with life energy.",
+    "<light_purple>Wearer gains +4 max hearts."
+  ],
+  types: [
+    "NECKLACE",
+    "AMULET",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "vitality_aura",
+      trigger: "onEquip"
+    }
+  ]
+}

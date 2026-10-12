@@ -1,0 +1,22 @@
+{
+  // Enchanted Cloth Gloves - gloves that boost gathering speed
+  name: "<aqua>Enchanted Cloth Gloves",
+  material: "LEATHER_CHESTPLATE",
+  customModelData: 1002,
+  lore: [
+    "<gray>Gloves woven with mystical threads.",
+    "<aqua>Increases mining speed by 10%."
+  ],
+  types: [
+    "GLOVES",
+    "HAND",
+    "ARMOR",
+    "ACCESSORY"
+  ],
+  skills: [
+    {
+      skill: "mining_speed",
+      trigger: "onEquip"
+    }
+  ]
+}
