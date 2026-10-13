@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.yuemi.mmoitems.api.MmoItemsApi;
+import org.yuemi.mmoitems.api.item.ItemSkillConfig;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
 
 import java.util.List;
@@ -55,5 +56,10 @@ final class MmoItemsApiImpl implements MmoItemsApi {
     @Override
     public @NotNull List<String> getItemTypes(@NotNull ItemStack item) {
         return itemManager.getItemTypes(item);
+    }
+
+    @Override
+    public @NotNull List<ItemSkillConfig> getItemSkills(@NotNull ItemStack item) {
+        return itemManager.getItemSkills(item);
     }
 }

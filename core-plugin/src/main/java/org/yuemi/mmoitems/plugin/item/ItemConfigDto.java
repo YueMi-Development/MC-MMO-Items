@@ -1,5 +1,6 @@
 package org.yuemi.mmoitems.plugin.item;
 
+import org.yuemi.mmoitems.api.item.ItemSkillConfig;
 import java.util.List;
 
 public record ItemConfigDto(

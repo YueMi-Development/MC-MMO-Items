@@ -16,7 +16,7 @@ import org.yuemi.libs.api.event.EventApi;
 import org.yuemi.libs.api.event.EventApiProvider;
 import org.yuemi.mmomechanics.api.MmoMechanicsApi;
 import org.yuemi.mmoitems.plugin.item.ItemManager;
-import org.yuemi.mmoitems.plugin.item.ItemSkillConfig;
+import org.yuemi.mmoitems.api.item.ItemSkillConfig;
 
 import java.util.HashSet;
 import java.util.Set;

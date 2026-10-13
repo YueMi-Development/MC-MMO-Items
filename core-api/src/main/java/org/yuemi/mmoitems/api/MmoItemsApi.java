@@ -3,6 +3,8 @@ package org.yuemi.mmoitems.api;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.yuemi.mmoitems.api.item.ItemSkillConfig;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -58,4 +60,13 @@ public interface MmoItemsApi {
     boolean hasType(@NotNull ItemStack item, @NotNull String type);
 
     @NotNull List<String> getItemTypes(@NotNull ItemStack item);
+
+    /**
+     * Gets the skill bindings declared in the custom item's configuration.
+     * Each entry describes a skill id and the trigger under which it should fire.
+     *
+     * @param item the custom MmoItem
+     * @return immutable list of skill bindings (empty if item has none or is not a custom item)
+     */
+    @NotNull List<ItemSkillConfig> getItemSkills(@NotNull ItemStack item);
 }
