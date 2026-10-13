@@ -50,6 +50,8 @@ public final class MmoItemsPlugin extends JavaPlugin {
                 this,
                 ServicePriority.Normal
         );
+
+        org.yuemi.mmoitems.plugin.bstats.BStatsService.initialize(this);
     }
 
     @Override

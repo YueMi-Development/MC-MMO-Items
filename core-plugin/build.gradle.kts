@@ -16,12 +16,14 @@ val mmoMechanicsApiVersion: String by project
 val pluginVersion: String = project.version.toString()
 
 tasks.processResources {
+    val bstatsPluginId = project.findProperty("bstatsPluginId") as? String ?: ""
     val props = mapOf(
         "pluginName" to pluginName,
         "version" to pluginVersion,
         "apiVersion" to apiVersion,
         "authors" to authors,
-        "contributors" to contributors
+        "contributors" to contributors,
+        "bstatsPluginId" to bstatsPluginId
     )
     inputs.properties(props)
     filteringCharset = "UTF-8"
@@ -35,6 +37,7 @@ dependencies {
     implementation(project(":core-api"))
     implementation("org.yuemi:mc-config-libs:1.0.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
     compileOnly("io.papermc.paper:paper-api:$paperApiVersion")
     compileOnly("org.yuemi:YueMiLibs-api:$yuemiLibsApiVersion")
     compileOnly("org.yuemi:MmoMechanics-api:$mmoMechanicsApiVersion")
@@ -53,6 +56,9 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
     archiveVersion.set(pluginVersion)
     archiveClassifier.set("")
 
+    configurations = listOf(project.configurations.runtimeClasspath.get())
+
+    relocate("org.bstats", "${project.group}.plugin.bstats")
     relocate("org.yuemi.config", "${project.group}.libs.config")
 
     manifest {
