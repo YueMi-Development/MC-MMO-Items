@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.yuemi.mmoitems.api"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.yuemi.mmoitems.api"},{"l":"org.yuemi.mmoitems.api.item"}];updateSearchResults();
