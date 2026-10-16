@@ -4,6 +4,7 @@ main: org.yuemi.mmoitems.plugin.MmoItemsPlugin
 authors: [${authors}]
 contributors: [${contributors}]
 api-version: '${apiVersion}'
+folia-supported: true
 
 depend: [
   YueMiLibs,
